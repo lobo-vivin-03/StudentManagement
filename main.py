@@ -9,7 +9,7 @@ import json
 # MY db connection
 local_server = True
 app = Flask(__name__)
-app.secret_key = '1234'
+app.secret_key = '12345'
 
 # this is for getting unique user access
 login_manager = LoginManager(app)
