@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{% block title %}
+  {% endblock title %}</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+{% block style %}
+{% endblock style %}
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="static/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/assets/css/style.css" rel="stylesheet">
+
+ 
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+
+        <a href="/" class="scrollto"><b>S.M.S</b></a>
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="{% block home %}
+          {% endblock home %}"><a href="/">Home</a></li>
+         
+ <li><a href="/addstudent">Add new Student </a></li>
+ <li><a href="/addattendance">Update Attendance </a></li>
+ <li><a href="/department">Add new Department </a></li>
+ <li><a href="/triggers">Records </a></li>
+ <li><a href="/studentdetails">Student Details </a></li>
+ <li><a href="/search">Search </a></li>
+ <li><a href="/count">Department Stats </a></li>
+       
+    
+          <!-- <li><a href="/about">About</a></li> -->
+          
+   
+
+    {% if current_user.is_authenticated  %}
+          <li class="buy-tickets"><a href="">{{current_user.username}}</a></li>
+            <li class="buy-ticketsa"><a href="/logout">Logout</a></li>
+          {% else %}
+          <li class="buy-tickets"><a href="/login">Login</a></li>
+          <li class="buy-tickets"><a href="/signup">New User</a></li>
+        
+          {% endif %}
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Intro Section ======= -->
+ <section id="intro1">
+ 
+    <div class="intro1-container" data-aos="zoom-in" data-aos-delay="100">
+      <h1 class="mb-4 pb-0">STUDENT MANAGEMENT SYSTEM </span> </h1>
+ >
+    
+      <!-- <a href="" class="about-btn scrollto">View More</a> -->
+    </div>
+  </section><!-- End Intro Section -->
+  <main id="main">
+
+<section id="bg11">
+    {% block body %}<br>
+    <h3 class="text-center"><span>Search Student Details </span> </h3>
+      
+    {% with messages=get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+<br>
+<div class="container" >
+    <div class="row">
+        <div class="col-md-4">
+            <form action="/search" method="post">
+                <div class="form-group">
+                    <label for="attendance">Enter Your Roll Number</label>
+                    <input type="text" class="form-control" name="roll" id="roll" placeholder="Use Small Letter">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-danger btn-sm btn-block">Search</button>
+            </form>
+            <br><br>
+        </div>
+
+        <div class="col-md-8">
+            {% if bio %}
+            <br>
+            <h3>Your Details</h3>
+            <hr>
+            <li>Roll No : {{bio.rollno}}</li>
+            <li>Name    : {{bio.sname}}</li>
+            <li>Sem   : {{bio.sem}}</li>
+            <li>Gender   : {{bio.gender}}</li>
+            <li>Branch  : {{bio.branch}}</li>
+            <li>Email  : {{bio.email}}</li>
+            <li>Number  : {{bio.number}}</li>
+            <li>Address  : {{bio.address}}</li>
+            <hr>
+            <h3>Attendance Status</h3>
+            <hr>
+            {% if avg_attendance %}
+            <li>Attendance : {{ avg_attendance }}</li>
+            {% else %}
+            <li>No attendance record found</li>
+            {% endif %}
+            <br><br>
+            {% else %}
+            No such results
+            {% endif %}
+        </div>
+    </div>
+</div>
+</section>
+
+
+{% endblock body %}
